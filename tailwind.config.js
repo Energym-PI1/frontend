@@ -5,7 +5,26 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      backgroundImage: {
+
+      },
+      colors: {
+        blue: {
+          DEFAULT: "#034AA6",
+          'light': "#2987D9",
+          'greenLight': "#B4CED9",
+        },
+
+        yellow: {
+          DEFAULT: "#F2BC1B",
+        },
+
+        brown: {
+          DEFAULT: "#736D5C",
+        },
+      }
+    },
   },
   plugins: [],
 }
