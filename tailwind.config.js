@@ -23,6 +23,9 @@ export default {
         brown: {
           DEFAULT: "#736D5C",
         },
+      },
+      fontFamily: {
+        inter: 'Inter, serif'
       }
     },
   },
