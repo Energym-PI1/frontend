@@ -5,9 +5,12 @@ import { IoIosAlert } from "react-icons/io";
 import RegisterImg from "../assets/register.png";
 
 function Register() {
+    const [id, setId] = useState("");
+
     const [name, setName] = useState("");
-    const [username, setUserName] = useState("");
     const [email, setEmail] = useState("");
+    const [telephone, setTelephone] = useState("");
+    const [password, setPassword] = useState("");
 
     const {
         register,
@@ -15,37 +18,31 @@ function Register() {
         handleSubmit,
     } = useForm({
         defaultValues: {
+            id: "",
             name: "",
-            username: "",
             email: "",
             password: "",
-            confirmPassword: "",
+            telephone: "",
         },
     });
 
-    const onSubmit = async () => {};
+    const onSubmit = async () => {
+        console.log("Usuario registrado");
+    };
 
     const [showPasswordRules, setShowPasswordRules] = useState(false);
-    const [showPassword1, setShowPassword1] = useState(false);
-    const [showPassword2, setShowPassword2] = useState(false);
-
-    // Create separate state variables for passwords
-    const [password1, setPassword1] = useState("");
-    const [password2, setPassword2] = useState("");
+    const [showPassword, setShowPassword] = useState(false);
 
     const togglePasswordRules = () => {
         setShowPasswordRules(!showPasswordRules);
     };
 
-    const togglePasswordVisibility1 = () => {
-        setShowPassword1(!showPassword1);
-    };
-
-    const togglePasswordVisibility2 = () => {
-        setShowPassword2(!showPassword2);
+    const togglePasswordVisibility = () => {
+        setShowPassword((showPassword) => !showPassword);
     };
 
     const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+    const phonePattern = /^[0-9]*$/;
 
     return (
         <div className="w-full min-h-screen px-28 flex justify-between items-center font-inter">
@@ -61,6 +58,55 @@ function Register() {
                 <form onSubmit={handleSubmit(onSubmit)} className="w-full mt-4">
                     <div className="flex flex-col mb-2">
                         <label
+                            htmlFor="id"
+                            className="text-left text-base font-normal mb-1"
+                        >
+                            Número de identificación:
+                        </label>
+                        <input
+                            id="id"
+                            type="number"
+                            className={`w-full border-2 border-blue-light py-2 px-3 rounded-full focus:border-blue-light ${
+                                errors.id ? "border-red-700" : ""
+                            }`}
+                            {...register("id", {
+                                required: true,
+                                minLength: 3,
+                                maxLength: 20,
+                                pattern: /^[a-zA-ZáéíóúüÁÉÍÓÚÜ0-9\s\-']+$/,
+                            })}
+                            value={id}
+                            onChange={(e) => setId(e.target.value)}
+                            name="id"
+                        />
+                        {errors.id?.type === "minLength" && (
+                            <div className="inline-flex justify-start items-center">
+                                <IoIosAlert className=" text-[#B40000] mr-2" />
+                                <p className="text-red-700">
+                                    El campo debe tener al menos 3 caracteres
+                                </p>
+                            </div>
+                        )}
+                        {errors.id?.type === "maxLength" && (
+                            <div className="inline-flex justify-start items-center">
+                                <IoIosAlert className=" text-[#B40000] mr-2" />
+                                <p className="text-red-700">
+                                    El campo debe tener menos de 20 caracteres
+                                </p>
+                            </div>
+                        )}
+
+                        {errors.username?.type === "required" && (
+                            <div className="inline-flex justify-start items-center">
+                                <IoIosAlert className=" text-[#B40000] mr-2" />
+                                <p className="text-red-700">
+                                    Falta completar el número de identificación
+                                </p>
+                            </div>
+                        )}
+                    </div>
+                    <div className="flex flex-col mb-2">
+                        <label
                             htmlFor="name"
                             className="text-left text-base font-normal mb-1"
                         >
@@ -70,7 +116,7 @@ function Register() {
                             id="name"
                             type="text"
                             className={`w-full border-2 border-blue-light py-2 px-3 rounded-full focus:border-blue-light ${
-                                errors.username ? "border-red-700" : ""
+                                errors.name ? "border-red-700" : ""
                             }`}
                             {...register("name", {
                                 required: true,
@@ -108,63 +154,7 @@ function Register() {
                             </div>
                         )}
                     </div>
-                    <div className="flex flex-col mb-2">
-                        <label
-                            htmlFor="username"
-                            className="text-left text-base font-normal mb-1"
-                        >
-                            Usuario:
-                        </label>
-                        <input
-                            id="username"
-                            type="text"
-                            className={`w-full border-2 border-blue-light py-2 px-3 rounded-full focus:border-blue-light ${
-                                errors.username ? "border-red-700" : ""
-                            }`}
-                            {...register("username", {
-                                required: true,
-                                minLength: 3,
-                                maxLength: 20,
-                                pattern: /^[a-zA-ZáéíóúüÁÉÍÓÚÜ0-9\s\-']+$/,
-                            })}
-                            value={username}
-                            onChange={(e) => setUserName(e.target.value)}
-                            name="username"
-                        />
-                        {errors.username?.type === "minLength" && (
-                            <div className="inline-flex justify-start items-center">
-                                <IoIosAlert className=" text-[#B40000] mr-2" />
-                                <p className="text-red-700">
-                                    El campo debe tener al menos 3 caracteres
-                                </p>
-                            </div>
-                        )}
-                        {errors.username?.type === "maxLength" && (
-                            <div className="inline-flex justify-start items-center">
-                                <IoIosAlert className=" text-[#B40000] mr-2" />
-                                <p className="text-red-700">
-                                    El campo debe tener menos de 20 caracteres
-                                </p>
-                            </div>
-                        )}
-                        {errors.username?.type === "pattern" && (
-                            <div className="inline-flex justify-start items-center">
-                                <IoIosAlert className=" text-[#B40000] mr-2" />
-                                <p className="text-red-700">
-                                    El usuario es incorrecto. Por favor,
-                                    reingréselo.
-                                </p>
-                            </div>
-                        )}
-                        {errors.username?.type === "required" && (
-                            <div className="inline-flex justify-start items-center">
-                                <IoIosAlert className=" text-[#B40000] mr-2" />
-                                <p className="text-red-700">
-                                    Falta completar el usuario
-                                </p>
-                            </div>
-                        )}
-                    </div>
+
                     <div className="flex flex-col mb-2">
                         <label
                             htmlFor="email"
@@ -207,15 +197,54 @@ function Register() {
                     </div>
                     <div className="flex flex-col mb-2">
                         <label
-                            htmlFor="password1"
+                            htmlFor="telephone"
+                            className="text-left text-base font-normal mb-1"
+                        >
+                            Teléfono:
+                        </label>
+                        <input
+                            id="telephone"
+                            type="tel"
+                            className={`w-full border-2 border-blue-light py-2 px-3 rounded-full focus:border-blue-light ${
+                                errors.telephone ? "border-red-700" : ""
+                            }`}
+                            {...register("telephone", {
+                                required: true,
+                                pattern: phonePattern,
+                            })}
+                            inputMode="numeric"
+                            value={telephone}
+                            onChange={(e) => setTelephone(e.target.value)}
+                            name="telephone"
+                        />
+                        {errors.telephone?.type === "required" && (
+                            <div className="inline-flex justify-start items-center">
+                                <IoIosAlert className=" text-[#B40000] mr-2" />
+                                <p className="text-[#B40000]">
+                                    Falta completar el teléfono
+                                </p>
+                            </div>
+                        )}
+                        {errors.telephone?.type === "pattern" && (
+                            <div className="inline-flex justify-start items-center">
+                                <IoIosAlert className=" text-[#B40000] mr-2" />
+                                <p className="text-[#B40000]">
+                                    El teléfono debe contener solo números
+                                </p>
+                            </div>
+                        )}
+                    </div>
+                    <div className="flex flex-col mb-2">
+                        <label
+                            htmlFor="password"
                             className="text-left text-base font-normal mb-1"
                         >
                             Contraseña:
                         </label>
                         <div className="relative flex items-center">
                             <input
-                                id="password1"
-                                type={showPassword1 ? "text" : "password"}
+                                id="password"
+                                type={showPassword ? "text" : "password"}
                                 {...register("password", {
                                     required: true,
                                     minLength: 6,
@@ -224,18 +253,18 @@ function Register() {
                                         /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!#$%&()*+/?@[\]^_{|}])[A-Za-z\d!#$%&()*+/?@[\]^_{|}]+$/,
                                 })}
                                 className={`w-full border-2 border-blue-light py-2 px-3 rounded-full focus:border-blue-light ${
-                                    errors.username ? "border-red-700" : ""
+                                    errors.password ? "border-red-700" : ""
                                 }`}
-                                value={password1}
-                                onChange={(e) => setPassword1(e.target.value)}
-                                name="password1" 
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                                name="password"
                                 onClick={togglePasswordRules}
                             />
                             <div
                                 className="absolute right-0 mr-3 cursor-pointer"
-                                onClick={togglePasswordVisibility1}
+                                onClick={togglePasswordVisibility}
                             >
-                                {showPassword1 ? (
+                                {showPassword ? (
                                     <AiFillEyeInvisible className="text-blue-light" />
                                 ) : (
                                     <AiFillEye className="text-blue-light" />
@@ -247,8 +276,8 @@ function Register() {
                                 - Entre 6 y 10 caracteres. <br />
                                 - Al menos una mayúscula. <br />
                                 - Al menos una minúscula. <br />
-                                - Al menos un número. <br />- Al menos un
-                                caracter especial. Listado aceptado: ! # $ % & (
+                                - Al menos un número. <br />
+                                - Al menos un caracter especial. Listado aceptado: ! # $ % & (
                                 ) * + - /? @ [ \ ] ^ _ [ | ].
                             </div>
                         )}
@@ -289,64 +318,15 @@ function Register() {
                             </div>
                         )}
                     </div>
-                    <div className="flex flex-col">
-                        <label
-                            htmlFor="confirm-password"
-                            className="text-left text-base font-normal mb-1"
-                        >
-                            Confirmar contraseña:
-                        </label>
-                        <div className="relative flex items-center">
-                            <input
-                                id="confirm-password"
-                                type={showPassword2 ? "text" : "password"}
-                                className={`w-full border-2 border-blue-light py-2 px-3 rounded-full focus:border-blue-light ${
-                                    errors.username ? "border-red-700" : ""
-                                }`}
-                                {...register("password", {
-                                    required: true,
-                                    minLength: 6,
-                                    maxLength: 10,
-                                    pattern:
-                                        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!#$%&()*+/?@[\]^_{|}])[A-Za-z\d!#$%&()*+/?@[\]^_{|}]+$/,
-                                })}
-                                value={password2}
-                                onChange={(e) => setPassword2(e.target.value)}
-                                name="password2"
-                                onClick={togglePasswordRules}
-                            />
-                            <div
-                                className="absolute right-0 mr-3 cursor-pointer"
-                                onClick={togglePasswordVisibility2}
-                            >
-                                {showPassword2 ? (
-                                    <AiFillEyeInvisible className="text-blue-light" />
-                                ) : (
-                                    <AiFillEye className="text-blue-light" />
-                                )}
-                            </div>
-                        </div>
-                        {errors.confirmarContraseña?.type === "validate" && (
-                            <div className="inline-flex justify-start items-center">
-                                <IoIosAlert className=" text-[#B40000] mr-2" />
-                                <p className="text-red-700">
-                                    La contraseña no coincide. Por favor,
-                                    reingrese la contraseña.
-                                </p>
-                            </div>
-                        )}
-                        {errors.confirmarContraseña?.type === "required" && (
-                            <div className="inline-flex justify-start items-center">
-                                <IoIosAlert className=" text-[#B40000] mr-2" />
-                                <p className="text-red-700">
-                                    Falta confirmar la contraseña
-                                </p>
-                            </div>
-                        )}
-                    </div>
+
                     <button
                         type="submit"
-                        className="w-full text-white text-base font-bold text-center bg-blue-light my-4 rounded-full hover:bg-blue py-2 px-3"
+                        className={`w-full text-white text-base font-bold text-center bg-blue-light my-4 rounded-full hover:bg-blue py-2 px-3 ${
+                            Object.keys(errors).length > 0
+                                ? "opacity-50 cursor-not-allowed"
+                                : ""
+                        }`}
+                        disabled={Object.keys(errors).length > 0}
                     >
                         Registrar
                     </button>
