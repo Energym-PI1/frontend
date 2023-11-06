@@ -4,13 +4,14 @@ import { useState } from "react";
 import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai";
 import { IoIosAlert } from "react-icons/io";
 import RegisterImg from "../assets/register.png";
-import { redirect } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function Register() {
     const urlAPI = "https://energym-403700.uc.r.appspot.com/energym-api";
 
-    const [id, setId] = useState("");
+    const navigate = useNavigate();
 
+    const [id, setId] = useState("");
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [telephone, setTelephone] = useState("");
@@ -35,7 +36,7 @@ function Register() {
             const response = await axios({
                 method: "POST",
                 url: `${urlAPI}/user`,
-                headers: { "Content-Type": "application/json", "accept": "*/*", },
+                headers: { "Content-Type": "application/json" },
                 data: {
                     id,
                     name,
@@ -43,19 +44,17 @@ function Register() {
                     password,
                     telephone,
                     role: {
-                        id: 0,
-                        name: "",
+                        id: 1,
+                        name: "ADMINISTRADOR",
                     },
                 },
             });
 
-            if (response.ok) {
-                const data = await response.json();
-                console.log(data.message);
-                redirect("/login");
+            if (response.status === 200 || response.status === 201) {
+                console.log(response);
+                navigate("/login");
             } else {
-                const data = await response.json();
-                console.error("API request failed:", data.message);
+                console.error("API request failed:", response);
             }
         } catch (error) {
             console.error(error);
