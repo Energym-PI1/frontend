@@ -1,10 +1,14 @@
+import axios from "axios";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai";
 import { IoIosAlert } from "react-icons/io";
 import RegisterImg from "../assets/register.png";
+import { redirect } from "react-router-dom";
 
 function Register() {
+    const urlAPI = "https://energym-403700.uc.r.appspot.com/energym-api";
+
     const [id, setId] = useState("");
 
     const [name, setName] = useState("");
@@ -27,7 +31,35 @@ function Register() {
     });
 
     const onSubmit = async () => {
-        console.log("Usuario registrado");
+        try {
+            const response = await axios({
+                method: "POST",
+                url: `${urlAPI}/user`,
+                headers: { "Content-Type": "application/json", "accept": "*/*", },
+                data: {
+                    id,
+                    name,
+                    email,
+                    password,
+                    telephone,
+                    role: {
+                        id: 0,
+                        name: "",
+                    },
+                },
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                console.log(data.message);
+                redirect("/login");
+            } else {
+                const data = await response.json();
+                console.error("API request failed:", data.message);
+            }
+        } catch (error) {
+            console.error(error);
+        }
     };
 
     const [showPasswordRules, setShowPasswordRules] = useState(false);
@@ -276,8 +308,8 @@ function Register() {
                                 - Entre 6 y 10 caracteres. <br />
                                 - Al menos una mayúscula. <br />
                                 - Al menos una minúscula. <br />
-                                - Al menos un número. <br />
-                                - Al menos un caracter especial. Listado aceptado: ! # $ % & (
+                                - Al menos un número. <br />- Al menos un
+                                caracter especial. Listado aceptado: ! # $ % & (
                                 ) * + - /? @ [ \ ] ^ _ [ | ].
                             </div>
                         )}
