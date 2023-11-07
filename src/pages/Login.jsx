@@ -1,9 +1,11 @@
 import LoginImg from "../assets/login.png";
 import { useForm } from "react-hook-form";
-import { useState } from "react";
+import { useState, } from "react";
 import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai";
 import { IoIosAlert } from "react-icons/io";
 import { useNavigate } from "react-router";
+import axios from "axios";
+
 function Login() {
     const navigate = useNavigate();
 
@@ -33,7 +35,31 @@ function Login() {
     };
 
     const onSubmit = async () => {
-        navigate("/");
+        try {
+            const response = await axios({
+                method: "post",
+                url: "https://energym-403700.uc.r.appspot.com/energym-api/login",
+                data: {
+                    id: "",
+                    name: "",
+                    email,
+                    password,
+                    telephone: "",
+                    role: {
+                        id: 1,
+                        name: "ADMINISTRADOR",
+                    },
+                },
+            });
+
+            if (response.status === 200) {
+                navigate("/");
+            } else {
+                console.error("API request failed:", response);
+            }
+        } catch (error) {
+            console.log(error);
+        }
     };
 
     const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
