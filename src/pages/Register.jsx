@@ -5,6 +5,7 @@ import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai";
 import { IoIosAlert } from "react-icons/io";
 import RegisterImg from "../assets/register.png";
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 function Register() {
     const urlAPI = "https://energym-403700.uc.r.appspot.com/energym-api";
@@ -52,11 +53,31 @@ function Register() {
 
             if (response.status === 200 || response.status === 201) {
                 console.log(response);
+                Swal.fire({
+                    title: "Éxito!",
+                    text: "El usuario fue registrado con éxito",
+                    icon: "success",
+                });
                 navigate("/login");
-            } else {
-                console.error("API request failed:", response);
             }
         } catch (error) {
+            if (error.response && error.response.status === 406) {
+                Swal.fire({
+                    title: "Error!",
+                    text: "Ya se encuentra un usuario registrado con el mismo correo electrónico. Vuelva a intentar",
+                    icon: "error",
+                    confirmButtonText: "Ok",
+                });
+                console.error("API request failed:", error.response);
+            } else if (error.response && error.response.status === 409) {
+                Swal.fire({
+                    title: "Error!",
+                    text: "Ya se encuentra un usuario registrado con el mismo id. Vuelva a intentar",
+                    icon: "error",
+                    confirmButtonText: "Ok",
+                });
+                console.error("API request failed:", error.response);
+            }
             console.error(error);
         }
     };
@@ -127,7 +148,7 @@ function Register() {
                             </div>
                         )}
 
-                        {errors.username?.type === "required" && (
+                        {errors.id?.type === "required" && (
                             <div className="inline-flex justify-start items-center">
                                 <IoIosAlert className=" text-[#B40000] mr-2" />
                                 <p className="text-red-700">

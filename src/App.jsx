@@ -1,4 +1,9 @@
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import {
+    BrowserRouter as Router,
+    Route,
+    Routes,
+    Navigate,
+} from "react-router-dom";
 import "./App.css";
 // import Navbar from "./components/Navbar";
 // import Footer from "./components/Footer";
@@ -10,31 +15,34 @@ import Register from "./pages/Register";
 import Login from "./pages/Login";
 
 function App() {
+    const shouldRedirect = true;
     return (
         <Router>
             <div className="flex flex-col h-full">
-                {/* <div>
-                    <Navbar />
-                </div> */}
-                <div>
-                    <Routes>
-                        <Route path="/" element={<User />} />
-                        <Route path="/classes" element={<Classes />} />
-                        <Route
-                            path="/reservation-group"
-                            element={<GroupReservations />}
-                        />
-                        <Route
-                            path="/reservation-individual"
-                            element={<IndividualReservations />}
-                        />
-                        <Route path="/register" element={<Register />} />
-                        <Route path="/login" element={<Login />} />
-                    </Routes>
-                </div>
-                {/* <div>
-                    <Footer />
-                </div> */}
+                <Routes>
+                    <Route
+                        path="/"
+                        element={
+                            shouldRedirect ? (
+                                <Navigate replace to="/login" />
+                            ) : (
+                                <Login />
+                            )
+                        }
+                    />
+                    <Route path="/user" element={<User />} />
+                    <Route path="/classes" element={<Classes />} />
+                    <Route
+                        path="/reservation-group"
+                        element={<GroupReservations />}
+                    />
+                    <Route
+                        path="/reservation-individual"
+                        element={<IndividualReservations />}
+                    />
+                    <Route path="/register" element={<Register />} />
+                    <Route path="/login" element={<Login />} />
+                </Routes>
             </div>
         </Router>
     );
