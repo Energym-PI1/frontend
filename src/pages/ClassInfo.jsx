@@ -43,7 +43,7 @@ const ClassInfo = () => {
                             <div className="flex items-center justify-start bg-[#D9D9D9] rounded-full w-min px-4 py-2 ">
                                 <PiChalkboardTeacher className="text-black w-5 h-5" />
                                 <p className="text-left ml-1 text-base">
-                                    $10.000/h
+                                    $10.000
                                 </p>
                             </div>
                             <div className="flex items-center justify-start bg-[#D9D9D9] rounded-full w-fit px-4 py-2">

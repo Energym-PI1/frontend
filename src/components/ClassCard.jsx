@@ -28,7 +28,7 @@ const ClassCard = ({ title, img, value, time, rating }) => {
             <div className="flex items-center justify-between gap-2 my-3">
                 <div className="flex items-center justify-start bg-[#D9D9D9] rounded-full w-full px-2 py-1 ">
                     <PiChalkboardTeacher className="text-black w-5 h-5" />
-                    <p className="text-left ml-1 text-base">${value}/h</p>
+                    <p className="text-left ml-1 text-base">${value}</p>
                 </div>
                 <div className="flex items-center justify-start bg-[#D9D9D9] rounded-full w-full px-2 py-1">
                     <PiClock className="text-black w-4 h-4" />
