@@ -5,6 +5,7 @@ import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai";
 import { IoIosAlert } from "react-icons/io";
 import { useNavigate } from "react-router";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 function Login() {
     const navigate = useNavigate();
@@ -53,12 +54,23 @@ function Login() {
             });
 
             if (response.status === 200) {
-                navigate("/");
-            } else {
-                console.error("API request failed:", response);
+                Swal.fire({
+                    title: "Éxito!",
+                    text: "El usuario ingresó con éxito",
+                    icon: "success",
+                });
+                navigate("/user");
             }
         } catch (error) {
-            console.log(error);
+            if (error.response && error.response.status === 404) {
+                Swal.fire({
+                    title: "Error!",
+                    text: "El correo y/o contraseña son incorrectos. Vuelva a intentar",
+                    icon: "error",
+                    confirmButtonText: "Ok",
+                });
+                console.error("API request failed:", error.response);
+            }
         }
     };
 
