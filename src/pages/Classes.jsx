@@ -79,22 +79,32 @@ const Classes = () => {
 
     const [searchTerm, setSearchTerm] = useState("");
     const [filteredClasses, setFilteredClasses] = useState(classesInfo);
-    
-    const handleSearch = (event) => {
-        setSearchTerm(event.target.value.toLowerCase());
-    
-        const filtered = classesInfo.filter((classItem) =>
-            classItem.title.toLowerCase().includes(searchTerm)
-        );
-    
-        setFilteredClasses(filtered);
+
+    const debounceSearch = (event) => {
+        const searchTerm = event.target.value.toLowerCase();
+        let timeoutId = null;
+
+        clearTimeout(timeoutId);
+
+        timeoutId = setTimeout(() => {
+            setSearchTerm(searchTerm);
+
+            const filtered = classesInfo.filter((classItem) =>
+                classItem.title.toLowerCase().includes(searchTerm)
+            );
+
+            setFilteredClasses(filtered);
+        }, 250); // Delay the execution of the search function by 250 milliseconds
     };
-    
+
+    const handleSearch = (event) => {
+        debounceSearch(event);
+    };
 
     return (
         <div className="">
             <Navbar />
-            <div className="py-20 px-28">
+            <div className="py-10 px-28">
                 <div className="flex justify-start items-center gap-3 my-10">
                     <p className="text-base text-left ">Buscar clase:</p>
                     <input
