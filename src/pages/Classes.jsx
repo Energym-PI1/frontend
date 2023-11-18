@@ -77,21 +77,20 @@ const Classes = () => {
         },
     ];
 
-    // State variables for search functionality
     const [searchTerm, setSearchTerm] = useState("");
     const [filteredClasses, setFilteredClasses] = useState(classesInfo);
-
-    // Function to handle search logic
+    
     const handleSearch = (event) => {
-        const searchTerm = event.target.value.toLowerCase();
-        setSearchTerm(searchTerm);
-
+        setSearchTerm(event.target.value.toLowerCase());
+    
         const filtered = classesInfo.filter((classItem) =>
             classItem.title.toLowerCase().includes(searchTerm)
         );
-
+    
         setFilteredClasses(filtered);
     };
+    
+
     return (
         <div className="">
             <Navbar />
