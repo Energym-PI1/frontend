@@ -1,71 +1,94 @@
 import { Link } from "react-router-dom";
-import { MdBook } from "react-icons/md";
-import { BiSolidSearchAlt2 } from "react-icons/bi";
 import { LiaDumbbellSolid } from "react-icons/lia";
-import { IoPeople, IoExit } from "react-icons/io5";
-import { AiFillSetting } from "react-icons/ai";
-import { FaIdCardClip } from "react-icons/fa6";
+import { useState } from "react";
+
 const Navbar = () => {
+    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
+    const handleDropdownToggle = () => {
+        setIsDropdownOpen((prevState) => !prevState);
+    };
+
+    const handleMouseEnter = () => {
+        setIsDropdownOpen(true);
+    };
+
+    const handleMouseLeave = () => {
+        setIsDropdownOpen(true);
+    };
+
+    const handleDropdownMouseEnter = () => {
+        setIsDropdownOpen(true);
+    };
+
+    const handleDropdownMouseLeave = () => {
+        setIsDropdownOpen(false);
+    };
+
     return (
-        <nav className="min-h-full w-80 bg-blue-light p-6 font-inter border-r-2 border-yellow">
-            <div className="mb-16 w-full text-left">
-                <LiaDumbbellSolid className="h-16 w-16 text-white" />
+        <nav className="w-full h-20 flex justify-between items-center bg-transparent px-28 font-inter border-b-2 border-yellow">
+            <div className="">
+                <LiaDumbbellSolid className="h-14 w-14 text-blue-light" />
             </div>
-            <ul className="text-left text-white text-base my-auto">
-                <li className="my-6">
-                    <Link
-                        to="/user"
-                        className="text-white hover:underline hover:underline-offset-8 hover:decoration-yellow hover:decoration-4 flex items-center"
-                    >
-                        <MdBook className="text-white mr-1 h-5 w-5" />
-                        Mis clases
-                    </Link>
-                </li>
-                <li className="my-6">
-                    <Link
-                        to="/classes"
-                        className="text-white hover:underline hover:underline-offset-8 hover:decoration-yellow hover:decoration-4 flex items-center"
-                    >
-                        <BiSolidSearchAlt2 className="text-white mr-1 h-5 w-5" />
-                        Explorar clases
-                    </Link>
-                </li>
-                <li className="my-6">
-                    <Link
-                        to="/reservation-individual"
-                        className="text-white hover:underline hover:underline-offset-8 hover:decoration-yellow hover:decoration-4 flex items-center"
-                    >
-                        <FaIdCardClip className="text-white mr-1 h-5 w-5" />
-                        Reserva - Clases Individuales
-                    </Link>
-                </li>
-                <li className="my-6">
-                    <Link
-                        to="/reservation-group"
-                        className="text-white hover:underline hover:underline-offset-8 hover:decoration-yellow hover:decoration-4 flex items-center"
-                    >
-                        <IoPeople className="text-white mr-1 h-5 w-5" />
-                        Reserva - Clases Grupales
-                    </Link>
-                </li>
-                <li className="my-6">
-                    <Link
-                        to="/config"
-                        className="text-white hover:underline hover:underline-offset-8 hover:decoration-yellow hover:decoration-4 flex items-center"
-                    >
-                        <AiFillSetting className="text-white mr-1 h-5 w-5" />
-                        Configuración
-                    </Link>
-                </li>
-            </ul>
-            <div className="w-full flex justify-end mt-[250px] mb-0">
+
+            <div className="flex justify-end gap-10">
                 <Link
-                    to="/login"
-                    className="text-white hover:underline hover:underline-offset-8 hover:decoration-yellow hover:decoration-4 flex items-center"
+                    to="/user"
+                    className="hover:underline hover:underline-offset-4 hover:decoration-blue-light hover:decoration-2"
                 >
-                    <IoExit className="text-white mr-1 h-5 w-5" />
-                    Cerrar Sesión
+                    Mis clases
                 </Link>
+                <Link
+                    to="/classes"
+                    className="hover:underline hover:underline-offset-4 hover:decoration-blue-light hover:decoration-2"
+                >
+                    Explorar clases
+                </Link>
+
+                <div
+                    className={`relative inline-block text-left ${
+                        isDropdownOpen ? "block" : ""
+                    }`}
+                    onMouseEnter={handleDropdownMouseEnter}
+                    onMouseLeave={handleDropdownMouseLeave}
+                >
+                    <button
+                        className="hover:underline hover:underline-offset-4 hover:decoration-blue-light hover:decoration-2 cursor-pointer w-full"
+                        onMouseEnter={handleMouseEnter}
+                        onMouseLeave={handleMouseLeave}
+                        onClick={handleDropdownToggle}
+                    >
+                        Reservar clases
+                    </button>
+
+                    <div
+                        className={`absolute bg-white text-black py-2 shadow-md w-full ${
+                            isDropdownOpen ? "block" : "hidden"
+                        }`}
+                    >
+                        <Link
+                            to="/reservation-individual"
+                            className="block py-2 px-4 hover:underline hover:underline-offset-4 hover:decoration-blue-light hover:decoration-2 cursor-pointer"
+                        >
+                            Individual
+                        </Link>
+                        <Link
+                            to="/reservation-group"
+                            className="block py-2 px-4 hover:underline hover:underline-offset-4 hover:decoration-blue-light hover:decoration-2 cursor-pointer"
+                        >
+                            Grupal
+                        </Link>
+                    </div>
+                </div>
+
+                <button className="">
+                    <Link
+                        to="/login"
+                        className="text-white bg-blue-light w-full hover:bg-blue py-3 px-2 rounded-xl"
+                    >
+                        Cerrar Sesión
+                    </Link>
+                </button>
             </div>
         </nav>
     );
