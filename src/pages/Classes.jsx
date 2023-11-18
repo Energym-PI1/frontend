@@ -95,8 +95,8 @@ const Classes = () => {
     return (
         <div className="">
             <Navbar />
-            <div className="py-20">
-                <div className="flex justify-start items-center gap-3 my-10 px-10">
+            <div className="py-20 px-28">
+                <div className="flex justify-start items-center gap-3 my-10">
                     <p className="text-base text-left ">Buscar clase:</p>
                     <input
                         type="search"
@@ -106,7 +106,7 @@ const Classes = () => {
                         className="border-blue-light border py-1 px-2 rounded-md focus:outline-none "
                     />
                 </div>
-                <div className="flex flex-wrap gap-x-4 gap-y-9 justify-around px-10">
+                <div className="flex flex-wrap gap-x-2 gap-y-9 justify-between">
                     {filteredClasses.map((classItem, index) => (
                         <ClassCard
                             key={index}

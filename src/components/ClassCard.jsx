@@ -35,7 +35,7 @@ const ClassCard = ({ title, img, value, time, rating }) => {
                     <p className="text-left ml-1 text-base">{time}</p>
                 </div>
             </div>
-            <button className="w-full bg-blue-light border rounded-md text-white text-lg font-semibold py-2 hover:bg-blue">
+            <button className="w-full bg-blue-light border rounded-md text-white text-lg font-semibold py-2 hover:bg-blue transition-all duration-300">
                 <Link to="">Saber más...</Link>
             </button>
         </article>

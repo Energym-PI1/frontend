@@ -11,6 +11,7 @@ import GroupReservations from "./pages/GroupReservations";
 import IndividualReservations from "./pages/IndividualReservation";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
+import ClassInfo from "./pages/ClassInfo";
 
 function App() {
     const shouldRedirect = true;
@@ -30,6 +31,7 @@ function App() {
                     />
                     <Route path="/user" element={<User />} />
                     <Route path="/classes" element={<Classes />} />
+                    <Route path="/class-info" element={<ClassInfo />} />
                     <Route
                         path="/reservation-group"
                         element={<GroupReservations />}
