@@ -2,8 +2,10 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { Link } from "react-router-dom";
 import { PiChalkboardTeacher, PiClock } from "react-icons/pi";
+import { useParams } from "react-router-dom";
 
 const ClassInfo = () => {
+    const { classId } = useParams();
     return (
         <>
             <Navbar />
@@ -25,7 +27,7 @@ const ClassInfo = () => {
                 <article className="flex justify-between flex-row gap-x-20 my-10">
                     <div className="w-full justify-start min-h-full">
                         <h2 className="text-2xl font-semibold ">
-                            <span>254236</span> -{" "}
+                            <span>{classId}</span> -{" "}
                             <span>Nombre de la clase</span>
                         </h2>
                         <p className="text-base text-left my-4">
@@ -36,8 +38,12 @@ const ClassInfo = () => {
                             nihil.
                         </p>
                         <div className="flex justify-start gap-2">
-                            <h3 className="text-base font-medium">Instructor: </h3>
-                            <h4 className="text-base font-normal">Luis Matias</h4>
+                            <h3 className="text-base font-medium">
+                                Instructor:{" "}
+                            </h3>
+                            <h4 className="text-base font-normal">
+                                Luis Matias
+                            </h4>
                         </div>
                         <div className="flex items-center justify-start gap-4 my-4">
                             <div className="flex items-center justify-start bg-[#D9D9D9] rounded-full w-min px-4 py-2 ">
@@ -55,8 +61,14 @@ const ClassInfo = () => {
                         </div>
                     </div>
                     <div className="w-fit h-80">
-                        <img src="https://www.bodybuilding.com/images/page-graphics/beginning-bodyweight-strength-training-for-women-1-700xh.jpg" alt="" className="object-cover rounded-lg" />
-                        <button className="w-full bg-blue-light border rounded-md text-white text-lg font-semibold py-2 hover:bg-blue transition-all duration-300 my-4">Reservar</button>
+                        <img
+                            src="https://www.bodybuilding.com/images/page-graphics/beginning-bodyweight-strength-training-for-women-1-700xh.jpg"
+                            alt=""
+                            className="object-cover rounded-lg"
+                        />
+                        <button className="w-full bg-blue-light border rounded-md text-white text-lg font-semibold py-2 hover:bg-blue transition-all duration-300 my-4">
+                            <Link to={`/reservation-individual/${classId}`}>Reservar</Link>
+                        </button>
                     </div>
                 </article>
             </div>

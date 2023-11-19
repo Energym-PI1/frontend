@@ -3,8 +3,9 @@ import { PiChalkboardTeacher, PiClock } from "react-icons/pi";
 import { CiStar } from "react-icons/ci";
 import { Link } from "react-router-dom";
 
-const ClassCard = ({ title, img, value, time, rating }) => {
+const ClassCard = ({ classCode, title, img, value, time, rating }) => {
     ClassCard.propTypes = {
+        classCode: PropTypes.string,
         title: PropTypes.string.isRequired,
         img: PropTypes.string,
         value: PropTypes.number,
@@ -36,7 +37,7 @@ const ClassCard = ({ title, img, value, time, rating }) => {
                 </div>
             </div>
             <button className="w-full bg-blue-light border rounded-md text-white text-lg font-semibold py-2 hover:bg-blue transition-all duration-300">
-                <Link to="">Saber más...</Link>
+                <Link to={`/class-info/${classCode}`}>Saber más...</Link>
             </button>
         </article>
     );
