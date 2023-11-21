@@ -1,8 +1,6 @@
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import { Link } from "react-router-dom";
 import { PiChalkboardTeacher, PiClock } from "react-icons/pi";
-import { useParams } from "react-router-dom";
 
 const ClassInfo = () => {
     const { classId } = useParams();
