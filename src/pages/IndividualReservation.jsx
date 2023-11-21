@@ -58,7 +58,7 @@ const IndividualReservations = () => {
     const onSubmit = async () => {
         Swal.fire({
             title: "Éxito!",
-            text: "El usuario fue registrado con éxito",
+            text: "La reserva fue registrada con éxito",
             icon: "success",
         });
         navigate("/classes");
@@ -149,6 +149,7 @@ const IndividualReservations = () => {
                                         </label>
                                         <input
                                             type="number"
+                                            min={0}
                                             name="id"
                                             id=""
                                             className={`border border-blue-light rounded-md py-2 px-3 ${
@@ -252,7 +253,7 @@ const IndividualReservations = () => {
                                             Nombre completo:
                                         </label>
                                         <input
-                                            type="email"
+                                            type="text"
                                             name="name"
                                             id="name"
                                             className={`border border-blue-light rounded-md py-2 px-3 ${
