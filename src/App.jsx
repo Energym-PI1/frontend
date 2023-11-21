@@ -31,13 +31,13 @@ function App() {
                     />
                     <Route path="/user" element={<User />} />
                     <Route path="/classes" element={<Classes />} />
-                    <Route path="/class-info" element={<ClassInfo />} />
+                    <Route path="/classes/:classId" element={<ClassInfo />} />
                     <Route
                         path="/reservation-group"
                         element={<GroupReservations />}
                     />
                     <Route
-                        path="/reservation-individual"
+                        path="/reservation-individual/:classId"
                         element={<IndividualReservations />}
                     />
                     <Route path="/register" element={<Register />} />
