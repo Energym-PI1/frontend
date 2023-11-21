@@ -15,11 +15,10 @@ const Classes = () => {
                     "https://energym-403700.uc.r.appspot.com/energym-api/classes"
                 );
                 if (response.status === 200) {
-                    console.log(response);
                     setClassesInfo(response.data);
                 }
             } catch (error) {
-                if (error.response && error.response.status === 404) {
+                if (error.response || error.response.status === 404) {
                     Swal.fire({
                         title: "Error!",
                         text: "No se han encontrado clases",
@@ -37,25 +36,16 @@ const Classes = () => {
     const [searchTerm, setSearchTerm] = useState("");
     const [filteredClasses, setFilteredClasses] = useState(classesInfo);
 
-    const debounceSearch = (event) => {
-        const searchTerm = event.target.value.toLowerCase();
-        let timeoutId = null;
-
-        clearTimeout(timeoutId);
-
-        timeoutId = setTimeout(() => {
-            setSearchTerm(searchTerm);
-
-            const filtered = classesInfo.filter((classItem) =>
-                classItem.title.toLowerCase().includes(searchTerm)
-            );
-
-            setFilteredClasses(filtered);
-        }, 250); // Delay the execution of the search function by 250 milliseconds
-    };
+    useEffect(() => {
+        const filtered = classesInfo.filter((classItem) =>
+            classItem.name.toLowerCase().includes(searchTerm)
+        );
+        setFilteredClasses(filtered);
+    }, [searchTerm, classesInfo]);
 
     const handleSearch = (event) => {
-        debounceSearch(event);
+        const searchTerm = event.target.value.toLowerCase();
+        setSearchTerm(searchTerm);
     };
 
     return (
@@ -76,12 +66,12 @@ const Classes = () => {
                     {filteredClasses.map((classItem, index) => (
                         <ClassCard
                             key={index}
-                            classCode={classItem.code}
-                            title={classItem.title}
-                            value={classItem.value}
+                            classId={classItem.code}
+                            title={classItem.name}
+                            value={classItem.price}
                             rating={classItem.rating}
-                            img={classItem.img}
-                            time={classItem.time}
+                            img={classItem.image}
+                            time={classItem.duration}
                         />
                     ))}
                 </div>

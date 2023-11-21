@@ -31,7 +31,7 @@ function App() {
                     />
                     <Route path="/user" element={<User />} />
                     <Route path="/classes" element={<Classes />} />
-                    <Route path="/class-info/:classId" element={<ClassInfo />} />
+                    <Route path="/classes/:classId" element={<ClassInfo />} />
                     <Route
                         path="/reservation-group"
                         element={<GroupReservations />}
